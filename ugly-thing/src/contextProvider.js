@@ -41,7 +41,18 @@ function ContextProvider(props){
 
     const deleteThing = (_id) => {
         axios.delete(`https://api.vschool.io/trenden/thing/${_id}`)
-        .then(res => console.log(res))
+        .then(res => {
+            setThings(prevThings => {
+                const updateThings = prevThings.filter(thing => {
+                        if(_id !== thing._id){
+                            return true
+                        } else {
+                            return false
+                        }  
+                })
+                return updateThings
+            })
+        })
         .catch(err => console.log(err))
     }
     
